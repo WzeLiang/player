@@ -1,0 +1,77 @@
+.Header {
+  background: #242424;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding: 0 30px;
+  color: white;
+  font-size: 22px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+.Header .logo {
+  display: flex;
+  align-items: center;
+}
+.Header .logo img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.Player {
+  padding-top: 50px;
+}
+.Player .music-logo img {
+  height: 500px;
+  width: 500px;
+  border-radius: 50%;
+}
+.Player .name {
+  color: #333333;
+  font-size: 24px;
+  margin-top: 30px;
+}
+.Player .contorl-box {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+.Player .contorl-box .playorpause {
+  margin: 0 50px;
+}
+.Player .contorl-box img {
+  width: 60px;
+  height: 60px;
+}
+.Player .progress {
+  position: relative;
+  width: 1000px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.Player .progress .realtime {
+  position: absolute;
+  height: 10px;
+  top: 0;
+  left: 0;
+  width: 500px;
+  background: red;
+  border-radius: 5px;
+}
+.Player .progress .realcircle {
+  width: 20px;
+  height: 20px;
+  background: #d3cdcd;
+  color: red;
+  border-radius: 50%;
+  position: absolute;
+  left: 490px;
+  top: -5px;
+  font-size: 22px;
+  line-height: 15px;
+}
