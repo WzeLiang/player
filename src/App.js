@@ -6,6 +6,7 @@ import './App.css';
 import {MUSIC_LIST} from "./data/musiclist"
 import $ from 'jquery'
 import 'jplayer'
+let duration=null;
 class App extends Component {
   constructor(props) {
 
@@ -13,7 +14,9 @@ class App extends Component {
     this.state = {
         currentMusicItem: MUSIC_LIST[0],
         musicList: MUSIC_LIST,
-        playModel: 'order'  //顺序播放
+        playModel: 'order', //顺序播放
+        progress:0,
+        progresswidth:0
     };
 
 
@@ -24,31 +27,36 @@ class App extends Component {
       <div className="App" >
       <div id="player"></div>
         <Header/>
-        <Player/>
+        <Player progress={this.state.progress} progresswidth={this.state.progresswidth} onProgresschange={this.Progresschangehandler}/>
       </div>
     );
   }
-   // 播放音乐
-   playMusic(musicItem) {
-    console.log('musicItem', musicItem)
-    $('#player').jPlayer('setMedia', {
-        mp3: musicItem.file
-    }).jPlayer('play');
-    this.setState({
-        currentMusicItem: musicItem
-    })
-}
+  Progresschangehandler(progress){
+    console.log(progress)
+    $("#player").jPlayer("play",duration*progress)
+  }
   componentDidMount(){
-    $('#player').jPlayer('setMedia', {
-      mp3: "http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n1/96/84/1523189814.mp3"
-  }).jPlayer('play');
-    $('#player').jPlayer({
-      supplied: 'mp3',
-      wnode: 'window'
-  })
+   $("#player").jPlayer({
+     ready:function(){
+       $(this).jPlayer("setMedia",{
+         mp3:"http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n1/96/84/1523189814.mp3"
+       }).jPlayer("play")
+     },
+     supplied:"mp3",
+     wmode:"window"
+   })
+   $("#player").bind($.jPlayer.event.timeupdate,(e)=>{
+    duration=e.jPlayer.status.duration
+    this.setState({
+      progress:Math.round(e.jPlayer.status.currentTime),
+      progresswidth:e.jPlayer.status.currentPercentAbsolute
+    })
+    
+   })
 
-  // this.playMusic(this.state.currentMusicItem)
-
+  }
+  componentWillUnmount(){
+    $("#player").unbind($.jPlayer.event.timeupdate)
   }
 }
 

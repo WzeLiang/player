@@ -16,7 +16,7 @@ class Player extends Component{
         return(
             <div className="Player">
                 <div className="music-logo">
-                    <img src="https://p1.music.126.net/gGk-RFCXQb1pDIQybQcwgw==/8980810975735171.jpg" alt=""/>
+                    <img src="https://p1.music.126.net/gGk-RFCXQb1pDIQybQcwgw==/8980810975735171.jpg" alt="aaa"/>
                 </div>
                 <div className="name">放漾（电影《反转人生》插曲）</div>
                 <div className="contorl-box">
@@ -30,27 +30,26 @@ class Player extends Component{
                         <img src={Nextimg} alt=""/>
                     </div>
                 </div>
-                <div className="progress">
-                    <div className="realtime">
-                        <div className="realcircle" onMouseDown={this.ProgressChangedown} onMouseUp={this.ProgressChangemove}>●</div>
+                <div className="progress" onClick={this.ProgressChange.bind(this)} ref="progressBar">
+                    <div className="realtime" style={{width: `${this.props.progresswidth}%`}}>
+                        <div className="realcircle" >●</div>
                     </div>
-                    
+                    <div className="show-sec">{this.props.progress}s</div>
                 </div>
             </div>
         )
     }
-    ProgressChangedown(e){
-        console.log(e)
-        
+
+    ProgressChange(e){
+         let progressBar= this.refs.progressBar;
+
+         let progress=(e.clientX-progressBar.getBoundingClientRect().left)/progressBar.clientWidth
+        this.props.onProgresschange && this.props.onProgresschange(progress)
     
     }
-    ProgressChangemove(e){
-        console.log(e)
-        let oDivX = e.clientX - this.offsetLeft;
-        let oDivY = e.clientY - this.offsetTop;
-    }
+   
     componentDidMount(){
-        
+       
     }
 }
 export default Player;
